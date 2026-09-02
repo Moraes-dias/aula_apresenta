@@ -1,7 +1,9 @@
 package com.aula.exemplo.demo.config;
 
 import com.aula.exemplo.demo.model.Carro;
+import com.aula.exemplo.demo.model.Marca;
 import com.aula.exemplo.demo.repository.CarroRepository;
+import com.aula.exemplo.demo.repository.MarcaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,21 +14,28 @@ import java.util.List;
 public class DatabaseSeeder {
 
     @Bean
-    public CommandLineRunner popularCarros(CarroRepository carroRepository) {
+    public CommandLineRunner popularCarros(MarcaRepository marcaRepository, CarroRepository carroRepository) {
         return args -> {
             if (carroRepository.count() > 0) {
                 return;
             }
 
+            Marca volkswagen = marcaRepository.save(new Marca(null, "Volkswagen"));
+            Marca chevrolet = marcaRepository.save(new Marca(null, "Chevrolet"));
+            Marca toyota = marcaRepository.save(new Marca(null, "Toyota"));
+            Marca honda = marcaRepository.save(new Marca(null, "Honda"));
+            Marca fiat = marcaRepository.save(new Marca(null, "Fiat"));
+
             carroRepository.saveAll(List.of(
-                    new Carro(null, "Gol", "Volkswagen"),
-                    new Carro(null, "Onix", "Chevrolet"),
-                    new Carro(null, "Corolla", "Toyota"),
-                    new Carro(null, "Civic", "Honda"),
-                    new Carro(null, "Argo", "Fiat")
+                    new Carro(null, "Gol", volkswagen),
+                    new Carro(null, "Onix", chevrolet),
+                    new Carro(null, "Corolla", toyota),
+                    new Carro(null, "Civic", honda),
+                    new Carro(null, "Argo", fiat)
             ));
 
-            System.out.println(">>> Banco populado com " + carroRepository.count() + " carros.");
+            System.out.println(">>> Banco populado com " + marcaRepository.count() + " marcas e "
+                    + carroRepository.count() + " carros.");
         };
     }
 
