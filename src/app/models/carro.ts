@@ -3,7 +3,7 @@ import { Marca } from './Marca';
 export class Carro {
 
   id!: number;
-  marca: Marca = new Marca();
+  marca!: Marca | null;
   modelo!: string;
 
 }
