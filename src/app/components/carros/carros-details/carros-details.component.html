@@ -6,21 +6,36 @@
                     <h3>Cadastrar novo carro</h3>
                     <br>
 
-                     <mdb-form-control>
-                        <input mdbInput type="text" id="marca" class="form-control mb-3" [(ngModel)]='carro.marca'/>
+                    <mdb-form-control>
+                        <select mdbSelect class="form-select mb-3" id="marca" [(ngModel)]="carro.marca" [compareWith]="compareMarca">
+                            <option [ngValue]="null" disabled>Selecione a marca</option>
+                            @for (marca of marcas; track marca.id) {
+                                <option [ngValue]="marca">{{ marca.nome }}</option>
+                            }
+                        </select>
                         <label mdbLabel class="form-label" for="marca">Marca</label>
                     </mdb-form-control>
-                     <mdb-form-control>
-                        <input mdbInput type="text" id="marca" class="form-control mb-3" [(ngModel)]='carro.modelo'/>
-                        <label mdbLabel class="form-label" for="marca">Modelo</label>
+
+                    <mdb-form-control>
+                        <input
+                            mdbInput
+                            type="text"
+                            id="modelo"
+                            class="form-control mb-3"
+                            [(ngModel)]='carro.modelo'
+                            placeholder="Modelo"
+                        />
+                        <label mdbLabel class="form-label" for="modelo">Modelo</label>
                     </mdb-form-control>
 
                     <br>
 
-                     <button type="button" class="btn btn-primary" (click)="salvar()" >Salvar</button>
-                    
+                    <button type="button" class="btn btn-primary" (click)="salvar()">Salvar</button>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+

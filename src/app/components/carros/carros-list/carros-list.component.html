@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h3>Listagem de carros</h3>
                     <div class="direita">
-                        <button type="button" class="btn btn-primary" routerLink="/admin/carros/new">Novo</button>
+                        <button type="button" class="btn btn-primary" (click)="novoCarro()">Novo</button>
                     </div>
                     <br>
                     <table border="1" class="table table-striped">
@@ -21,10 +21,10 @@
                             @for (carro of lista; track carro.id) {
                             <tr>
                                 <td>{{carro.id}}</td>
-                                <td>{{carro.marca}}</td>
+                                <td>{{ carro.marca && carro.marca.nome ? carro.marca.nome : 'Sem marca' }}</td>
                                 <td>{{carro.modelo}}</td>
                                 <td class="direita">
-                                     <button type="button" class="btn btn-warning me-1" [routerLink]="['/admin/carros/edit', carro.id]">Editar</button>
+                                     <button type="button" class="btn btn-warning me-1"(click)="editarCarro(carro)" >Editar</button>
                                      <button type="button" class="btn btn-danger" (click)="deletar(carro)">Excluir</button>
                                 </td>
                             </tr>
@@ -37,3 +37,22 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #modalCarroDetails>
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Veiculos</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+    <app-carros-details
+        [carro]="carroEdit"
+        (retorno)="retornoDetalhe($event)"
+    ></app-carros-details>
+</div>
+</ng-template>
